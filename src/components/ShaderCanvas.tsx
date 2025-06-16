@@ -288,22 +288,14 @@ const ShaderCanvas: React.FC = () => {
   }, []);
 
   return (
-    <Box position='relative' >
-      <Box width="100%" zIndex={-1} overflow="hidden" rounded="xl" position="absolute" top={0} left={0} >
-        <canvas
-          ref={canvasRef}
-          className="border border-gray-600 rounded-lg shadow-lg"
-          style={{ width: `100%`, height: '600px' }}
-        />
-      </Box>
-      <Box h="600px" padding={12} >
-        <Heading size="7xl" fontSize="8xl" color="black" zIndex={2} >Mamba Labs</Heading>
-        <Text fontSize="2xs" color="gray.500"  >
-          Original implementation :
-          <Link href="https://www.shadertoy.com/view/dsXyzf" color="gray.400" variant="underline"  >{" "}purple-blue liquid gradient</Link>
-        </Text>
-      </Box>
+    <Box width="100%" zIndex={0} overflow="hidden" rounded="xl" >
+      <canvas
+        ref={canvasRef}
+        className="border border-gray-600 rounded-lg shadow-lg"
+        style={{ width: `100%`, height: '600px' }}
+      />
     </Box>
+
   );
 };
 
