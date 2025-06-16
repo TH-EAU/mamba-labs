@@ -9,7 +9,6 @@ const HoverCardWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
             backgroundSize="300% 300%"
             overflow="hidden"
             transition="1.8s ease"
-            cursor="pointer"
             _hover={{
                 backgroundPosition: "100% 100%",
                 zIndex: 9,

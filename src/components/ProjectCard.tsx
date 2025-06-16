@@ -1,13 +1,10 @@
 import { Box, Stack, Text, Image, Link, Skeleton, Heading } from "@chakra-ui/react"
 import { FiArrowUpRight } from "react-icons/fi"
 import HoverCardWrapper from "./HoverCardWrapper"
+import type { Project } from "../models/Projects"
+import ProjectPage from "./ProjectPage"
 
-type Project = {
-    title: string
-    category: string
-    imageUrl: string
-    href: string
-}
+
 
 type ProjectCardProps = {
     project: Project
@@ -32,7 +29,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                 />
                 <HoverCardWrapper>
                     <Stack p={8} textAlign="right" >
-                        <Heading textTransform="uppercase" >Projet</Heading>
+                        <Heading textTransform="uppercase" >{project.title}</Heading>
+                        <Text textAlign="right" >{project.tinyDescription}</Text>
                     </Stack>
                 </HoverCardWrapper>
             </Box>
@@ -41,23 +39,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                 <Text fontSize="xs" textTransform="uppercase" color="gray.400">
                     {project.category}
                 </Text>
-                <Link
-                    href={project.href}
-                    fontSize="lg"
-                    fontWeight="semibold"
-                    display="inline-flex"
-                    alignItems="center"
-                    gap="1"
-                    color="white"
-                    textDecoration="none"
-                    _hover={{
-                        textDecoration: "underline",
-                    }}
-
-                >
-                    {project.title}
-                    <Box as={FiArrowUpRight} boxSize={4} />
-                </Link>
+                <ProjectPage project={project} />
             </Stack>
         </Stack>
     )

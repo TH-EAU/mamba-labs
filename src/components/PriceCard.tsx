@@ -19,13 +19,15 @@ type PriceCardProps = {
 const PriceCard = ({ isHighlight = false, plan }: PriceCardProps): ReactNode => {
     return (
         <Stack
-            bg={isHighlight ? "accent" : "white"}
+            bg={isHighlight ? "bg.default" : "black"}
             color={isHighlight ? "white" : "fg.default"}
             borderRadius="xl"
             p="6"
             boxShadow="md"
             position="relative"
             justify="space-between"
+            border="1px solid"
+            borderColor="bg.default"
         >
             {isHighlight && (
                 <Box
@@ -78,8 +80,8 @@ const PriceCard = ({ isHighlight = false, plan }: PriceCardProps): ReactNode => 
             <Button
                 mt="6"
                 w="full"
-                bg={isHighlight ? "white" : "accent"}
-                color={isHighlight ? "accent" : "white"}
+                bg={isHighlight ? "white" : "bg.default"}
+                color={isHighlight ? "bg.default" : "white"}
                 fontWeight="bold"
                 borderRadius="xl"
                 _hover={{

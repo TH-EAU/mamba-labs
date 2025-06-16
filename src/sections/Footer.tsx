@@ -1,5 +1,7 @@
-import { Box, Flex, Text, Link, VStack, HStack, Icon } from '@chakra-ui/react';
+import { Box, Flex, Text, Link, VStack, HStack, Icon, Image } from '@chakra-ui/react';
 import { FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { navlinks } from '../components/Navbar';
+import { Link as ScrollLink } from "react-scroll"
 
 const Footer: React.FC = () => {
     return (
@@ -7,7 +9,6 @@ const Footer: React.FC = () => {
             as="footer"
             bg="black"
             color="white"
-            px={{ base: 6, md: 16 }}
             py={{ base: 12, md: 20 }}
             fontFamily="'Inter', sans-serif"
         >
@@ -19,9 +20,10 @@ const Footer: React.FC = () => {
             >
                 {/* Logo / Branding */}
                 <VStack align="flex-start" gap={4}>
-                    <Text fontSize="2xl" fontWeight="bold" textTransform="uppercase" letterSpacing={5} >
-                        Mamba Labs
-                    </Text>
+                    <HStack color="white" gap={0.5}>
+                        <Image src="/Logo-S.svg" alt="logo" />
+                        <Text fontSize="2xl" fontWeight="bold" textTransform="uppercase" letterSpacing={5}>amba Labs</Text>
+                    </HStack>
                     <Text fontSize="sm" maxW="300px" opacity={0.7}>
                         Concepteurs de solutions numériques uniques. Pensé pour votre succès.
                     </Text>
@@ -29,15 +31,28 @@ const Footer: React.FC = () => {
 
                 {/* Navigation Links */}
                 <VStack align="flex-start" gap={2}>
-                    <Link href="#about" fontSize="sm" _hover={{ opacity: 1 }} opacity={0.7} transition="all 0.3s">
-                        À propos
-                    </Link>
-                    <Link href="#shop" fontSize="sm" _hover={{ opacity: 1 }} opacity={0.7} transition="all 0.3s">
-                        Boutique
-                    </Link>
-                    <Link href="#contact" fontSize="sm" _hover={{ opacity: 1 }} opacity={0.7} transition="all 0.3s">
-                        Contact
-                    </Link>
+                    {navlinks.map(link =>
+                        <ScrollLink
+                            to={link.href}
+                            smooth="true"
+                            duration={500}
+                            offset={-80}
+                        >
+                            <Link
+                                key={link.label}
+                                as="p"
+                                fontSize="lg"
+                                fontWeight="semibold"
+                                display="inline-flex"
+                                alignItems="center"
+                                gap="1"
+                                color="white"
+                                textDecoration="none"
+                                _hover={{
+                                    textDecoration: "underline"
+                                }}>{link.label}</Link>
+                        </ScrollLink>
+                    )}
                 </VStack>
 
                 {/* Social Media */}

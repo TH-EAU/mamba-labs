@@ -1,10 +1,11 @@
-import { Box, Button, Heading, Link, Text, VStack, HStack, SimpleGrid } from '@chakra-ui/react';
+import { Box, Button, Heading, Link, Text, VStack, SimpleGrid } from '@chakra-ui/react';
 import React from 'react';
 import ShaderCanvas from '../components/ShaderCanvas';
+import { Link as ScrollLink } from "react-scroll"
 
 const HeroSection: React.FC = () => {
     return (
-        <Box position="relative" width="100%" overflow="hidden" rounded="xl">
+        <Box position="relative" width="100%" overflow="hidden" rounded="xl" pt={24}>
             <Box position="absolute" top={0} left={0} w="100%">
                 <ShaderCanvas />
             </Box>
@@ -32,9 +33,16 @@ const HeroSection: React.FC = () => {
                     <Button colorScheme="teal" size="lg">
                         Obtenez un Audit gratuit
                     </Button>
-                    <Button variant="outline" colorScheme="teal" size="lg">
-                        Nos réalisations
-                    </Button>
+                    <ScrollLink
+                        to="projects"
+                        smooth="true"
+                        duration={500}
+                        offset={-80}
+                    >
+                        <Button variant="outline" colorScheme="teal" size="lg">
+                            Nos réalisations
+                        </Button>
+                    </ScrollLink>
                 </SimpleGrid>
                 <Text fontSize="xs" color="gray.300" pt={4}>
                     Design inspired by{' '}

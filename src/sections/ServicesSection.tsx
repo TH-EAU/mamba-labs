@@ -40,7 +40,7 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ title, description }) => (
     <Stack gap={16} pt={16} transition=".5s" _hover={{ gap: 20, pt: 20 }}>
         <SimpleGrid columns={[1, 2]} >
             <Heading>{title}</Heading>
-            <Text>{description}</Text>
+            <Text textAlign="right" >{description}</Text>
         </SimpleGrid>
         <Separator />
     </Stack>
@@ -48,12 +48,13 @@ const ServiceItem: React.FC<ServiceItemProps> = ({ title, description }) => (
 
 const ServicesSection: React.FC = () => {
     return (
-        <Box py={20} px={{ base: 4, md: 10, lg: 20 }} >
-            <VStack gap={2} align="left" mb={12}>
+        <Box id="services" as="section" py={{ base: 12, md: 20 }}  >
+            <VStack gap={4} align="left" mb={24}>
                 <Heading size="xl" >
                     Nos valeurs & services
                 </Heading>
-                <Heading size={["4xl", "7xl"]} >
+                <Heading
+                    fontSize={{ base: "3xl", md: "5xl" }}>
                     Nos Services
                 </Heading>
                 <Text maxW="2xl" >

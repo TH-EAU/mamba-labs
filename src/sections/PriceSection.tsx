@@ -6,6 +6,8 @@ import {
     Button,
     HStack,
     Center,
+    VStack,
+    Heading,
 } from "@chakra-ui/react"
 import { FiCheck } from "react-icons/fi"
 import PriceCard from "../components/PriceCard"
@@ -77,8 +79,20 @@ const plans: Plan[] = [
 
 const PricingSection = () => {
     return (
-        <Box py="16" px={{ base: "4", md: "10" }}>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap="6" maxW="7xl" mx="auto">
+        <Box py="16" as="section" id="price" >
+            <VStack gap={4} align="left" mb={24}>
+                <Heading size="xl" >
+                    Nos valeurs & services
+                </Heading>
+                <Heading
+                    fontSize={{ base: "3xl", md: "5xl" }}>
+                    Nos Services
+                </Heading>
+                <Text maxW="2xl" >
+                    Nous vous offrons des solutions digitales sur mesure, performantes et parfaitement adaptées à vos besoins.
+                </Text>
+            </VStack>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={16} mx="auto">
                 {plans.map((plan, index) => {
                     const isHighlight = plan.highlighted
                     return (
