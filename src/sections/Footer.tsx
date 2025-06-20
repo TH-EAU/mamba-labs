@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                 {/* Logo / Branding */}
                 <VStack align="flex-start" gap={4}>
                     <HStack color="white" gap={0.5}>
-                        <Image src="/Logo-S.svg" alt="logo" />
+                        <Image src={`${import.meta.env.BASE_URL}/Logo-S.svg`} alt="logo" />
                         <Text fontSize="2xl" fontWeight="bold" textTransform="uppercase" letterSpacing={5}>amba Labs</Text>
                     </HStack>
                     <Text fontSize="sm" maxW="300px" opacity={0.7}>

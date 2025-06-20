@@ -45,7 +45,7 @@ const TrustedBySection: React.FC = () => {
                             px={10}
                         >
                             <Image
-                                src={logo}
+                                src= {`${import.meta.env.BASE_URL}${logo}`}
                                 alt={`Logo ${idx}`}
                                 h={{ base: 8, md: 10 }}
                                 objectFit="contain"

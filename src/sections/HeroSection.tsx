@@ -5,7 +5,7 @@ import { Link as ScrollLink } from "react-scroll"
 
 const HeroSection: React.FC = () => {
     return (
-        <Box position="relative" width="100%" overflow="hidden" rounded="xl" pt={24}>
+        <Box position="relative" width="100%" overflow="hidden" rounded="xl" pt={22}>
             <Box position="absolute" top={0} left={0} w="100%">
                 <ShaderCanvas />
             </Box>
@@ -18,11 +18,23 @@ const HeroSection: React.FC = () => {
                 textAlign="center"
                 position="relative"
                 zIndex={1}
+                _before={{
+                    position: "absolute",
+                    content:'""',
+                    width: "600px",
+                    height: "200px",
+                    backgroundColor: "black",
+                    zIndex: -1,
+                    top: "20%",
+                    filter: "blur(40px)",
+                    opacity: .5
+
+                }}
             >
-                <Heading fontSize={['4xl', '7xl']} color="white">
+                <Heading fontSize={['4xl', '7xl']} color="white" pb={[0, 6]} lineHeight={1} >
                     Soyez Mamba,
                 </Heading>
-                <Heading fontSize={['4xl', '7xl']} fontWeight="1" color="white">
+                <Heading fontSize={['4xl', '7xl']} fontWeight="1" lineHeight={1} color="white">
                     Soyez <Text as="span" fontWeight="100"  > Performant</Text>
                 </Heading>
 
@@ -39,15 +51,15 @@ const HeroSection: React.FC = () => {
                         duration={500}
                         offset={-80}
                     >
-                        <Button variant="outline" colorScheme="teal" size="lg">
+                        <Button variant="outline" colorScheme="teal" size="lg" color="white">
                             Nos réalisations
                         </Button>
                     </ScrollLink>
                 </SimpleGrid>
                 <Text fontSize="xs" color="gray.300" pt={4}>
-                    Design inspired by{' '}
+                    Design  by{' '}
                     <Link href="https://www.shadertoy.com/view/dsXyzf" textDecoration="underline" color="gray.400">
-                        purple-blue liquid gradient
+                        mamba labs
                     </Link>
                 </Text>
             </VStack>

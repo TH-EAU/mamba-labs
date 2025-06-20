@@ -52,16 +52,20 @@ const ShaderCanvas: React.FC = () => {
 
     float gradientFrequency = mix(2.0, 10.0, noiseValue);
     float gradient = fract(uv.x * gradientFrequency + time);
-    gradient = pow(gradient, 2.0);
+    gradient = pow(gradient, 1.5);
 
     vec3 blueGreen = vec3(0.2, 0.3, 0.9);
     vec3 darkViolet = vec3(0.3, 0.2, 0.9);
     vec3 lightBlue = vec3(0.6, 0.5, 1.0);
+
+    vec3 bigYellow = vec3(1, 0.85, .32);
+    vec3 bigOrange = vec3(.9, 0.45, .12);
+    vec3 littleOrange = vec3(0.7, 0.05, .02);
     vec3 black = vec3(0.0);
 
-    vec3 color = mix(black, blueGreen, gradient);
-    color = mix(color, darkViolet, smoothstep(0.1, 0.6, gradient));
-    color = mix(color, lightBlue, smoothstep(0.2, 0.9, gradient));
+    vec3 color = mix(black, littleOrange, gradient);
+    color = mix(color, bigOrange, smoothstep(0.1, 0.8, gradient));
+    color = mix(color, bigYellow, smoothstep(0.1, 0.8, gradient));
     color = mix(color, black, smoothstep(0.985, 1.0, gradient));
     return color;
   }
@@ -76,7 +80,7 @@ const ShaderCanvas: React.FC = () => {
     vec2 uv = gl_FragCoord.xy / iResolution.xy;
     float time = iTime * 0.1;
 
-    float chromaOffset = -2.5 / iResolution.x;
+    float chromaOffset = (-2.5 + random(vec2(-3.5,1))) / iResolution.x;
 
     vec3 col;
     col.r = getBaseColor(uv + vec2(chromaOffset, 0.0), time).r;
@@ -85,9 +89,6 @@ const ShaderCanvas: React.FC = () => {
 
     float vig = vignette(uv);
     col *= vig;
-
-    float grain = (random(gl_FragCoord.xy + iTime * 20.0) - 0.5) * 0.09;
-    col += grain;
 
     gl_FragColor = vec4(col, 1.0);
   }
