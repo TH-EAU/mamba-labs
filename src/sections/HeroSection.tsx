@@ -1,68 +1,85 @@
-import { Box, Button, Heading, Link, Text, VStack, SimpleGrid } from '@chakra-ui/react';
-import React from 'react';
+import { Box, Button, Heading, Link, Text, VStack, SimpleGrid, Container } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import ShaderCanvas from '../components/ShaderCanvas';
 import { Link as ScrollLink } from "react-scroll"
+import FadeInWrapper from '../components/FadeInWrapper';
 
 const HeroSection: React.FC = () => {
+    const [offsetY, setOffsetY] = useState(0)
+
+    useEffect(() => {
+        const handleScroll = () => setOffsetY(window.scrollY)
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
     return (
-        <Box position="relative" width="100%" overflow="hidden" rounded="xl" pt={22}>
-            <Box position="absolute" top={0} left={0} w="100%">
-                <ShaderCanvas />
+        <Box position="relative" width="100%" overflow="hidden" rounded="xl" >
+            <Box position="absolute" top={0} left={0} w="100%" overflow="hidden" >
+                <Box transform={`translateY(${offsetY * 0.2}px)`}>
+
+                    <ShaderCanvas />
+                </Box>
             </Box>
-            <VStack
-                gap={6}
-                align="center"
-                justify="center"
-                height="600px"
-                px={6}
-                textAlign="center"
-                position="relative"
-                zIndex={1}
-                _before={{
-                    position: "absolute",
-                    content:'""',
-                    width: "600px",
-                    height: "200px",
-                    backgroundColor: "black",
-                    zIndex: -1,
-                    top: "20%",
-                    filter: "blur(40px)",
-                    opacity: .5
+            <FadeInWrapper>
+                <Container maxW="3xl">
 
-                }}
-            >
-                <Heading fontSize={['4xl', '7xl']} color="white" pb={[0, 6]} lineHeight={1} >
-                    Soyez Mamba,
-                </Heading>
-                <Heading fontSize={['4xl', '7xl']} fontWeight="1" lineHeight={1} color="white">
-                    Soyez <Text as="span" fontWeight="100"  > Performant</Text>
-                </Heading>
+                    <VStack
 
-                <Text fontSize={['sm', 'md']} color="gray.200">
-                    Rapide. Précis. Puissant.
-                </Text>
-                <SimpleGrid gap={4} pt={4} columns={[1, 2]}>
-                    <Button colorScheme="teal" size="lg">
-                        Obtenez un Audit gratuit
-                    </Button>
-                    <ScrollLink
-                        to="projects"
-                        smooth="true"
-                        duration={500}
-                        offset={-80}
+                        gap={6}
+                        align="center"
+                        justify="center"
+                        height="600px"
+                        px={6}
+                        textAlign="center"
+                        position="relative"
+                        zIndex={1}
+                        _before={{
+                            position: "absolute",
+                            content: '""',
+                            width: "600px",
+                            height: "200px",
+                            backgroundColor: "black",
+                            zIndex: -1,
+                            top: "20%",
+                            filter: "blur(40px)",
+                            opacity: .5,
+
+                        }}
                     >
-                        <Button variant="outline" colorScheme="teal" size="lg" color="white">
-                            Nos réalisations
-                        </Button>
-                    </ScrollLink>
-                </SimpleGrid>
-                <Text fontSize="xs" color="gray.300" pt={4}>
-                    Design  by{' '}
-                    <Link href="https://www.shadertoy.com/view/dsXyzf" textDecoration="underline" color="gray.400">
-                        mamba labs
-                    </Link>
-                </Text>
-            </VStack>
+                        <Heading fontSize={['4xl', '7xl']} color="white" pb={[0, 6]} lineHeight={1} >
+                            Soyez Mamba, Soyez Performant.
+                        </Heading>
+
+                        <Text fontSize={['sm', 'md']} color="gray.200">
+                            Des sites web sur mesure, élégants et pensés pour la performance.
+                        </Text>
+                        <SimpleGrid gap={4} pt={4} columns={[1, 2]}>
+                            <Button colorScheme="teal" size="lg">
+                                Travaillons ensemble
+                            </Button>
+                            <ScrollLink
+                                to="projects"
+                                smooth="true"
+                                duration={500}
+                                offset={-80}
+                            >
+                                <Button variant="outline" colorScheme="teal" size="lg" color="white">
+                                    Nos réalisations
+                                </Button>
+                            </ScrollLink>
+                        </SimpleGrid>
+                        <Text fontSize="xs" color="gray.300" pt={4}>
+                            On conçoit avec vous un site rapide, élégant et
+                            <Link href="https://www.shadertoy.com/view/dsXyzf" textDecoration="underline" color="gray.400">
+                                taillé pour votre succès
+                            </Link>
+                        </Text>
+                    </VStack>
+                </Container>
+            </FadeInWrapper>
         </Box>
     );
 };

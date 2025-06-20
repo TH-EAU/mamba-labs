@@ -8,6 +8,7 @@ import Footer from "./sections/Footer"
 import ContactSection from "./sections/ContactSection"
 import SuccessSection from "./sections/SuccessSection"
 import TrustedBySection from "./sections/TrustedBySection"
+import FadeInWrapper from "./components/FadeInWrapper"
 
 function App() {
 
@@ -16,12 +17,24 @@ function App() {
       <Container zIndex={2} color="white" >
         <Navbar />
         <HeroSection />
-        <SuccessSection />
-        <TrustedBySection />
-        <ProjectsSection />
-        <ServicesSection />
-        <PricingSection />
-        <ContactSection />
+        <FadeInWrapper>
+          <SuccessSection />
+        </FadeInWrapper>
+        {/* <FadeInWrapper>
+          <TrustedBySection />
+        </FadeInWrapper> */}
+        <FadeInWrapper>
+          <ProjectsSection />
+        </FadeInWrapper>
+        <FadeInWrapper>
+          <ServicesSection />
+        </FadeInWrapper>
+        <FadeInWrapper>
+          <PricingSection />
+        </FadeInWrapper>
+        <FadeInWrapper>
+          <ContactSection />
+        </FadeInWrapper>
         <Footer />
       </Container>
 

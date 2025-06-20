@@ -46,11 +46,11 @@ const ShaderCanvas: React.FC = () => {
 
   vec3 getBaseColor(vec2 uv, float time) {
     float noiseValue = noise(vec2(uv.x, time));
-    float distortion = noise(uv + time) * 1.5;
+    float distortion = noise(uv + time) * 2.5;
     uv.x += distortion;
     uv.y += noise(uv + vec2(time, time)) * 10.1;
 
-    float gradientFrequency = mix(2.0, 10.0, noiseValue);
+    float gradientFrequency = mix(1.0, 5.0, noiseValue);
     float gradient = fract(uv.x * gradientFrequency + time);
     gradient = pow(gradient, 1.5);
 
@@ -73,7 +73,7 @@ const ShaderCanvas: React.FC = () => {
   float vignette(vec2 uv) {
     uv = uv * 2.0 - 1.0;
     float len = dot(uv, uv);
-    return smoothstep(1.5, 0.2, len);
+    return smoothstep(1.7, 0.2, len);
   }
 
   void main() {

@@ -1,13 +1,13 @@
-import { Box, Heading, Text, VStack,  Separator, Stack, SimpleGrid } from '@chakra-ui/react';
+import { Box, Heading, Text, VStack, Separator, Stack, SimpleGrid } from '@chakra-ui/react';
 import type { Service } from '../models/Service';
 import { serviceItems } from '../data/ServicesItems';
 
 const ServiceItem: React.FC<Service> = ({ title, description }) => (
-    <Stack gap={16} pt={16} transition=".5s" _hover={{ gap: 20, pt: 20 }}>
-        <SimpleGrid columns={[1, 2]} >
+    <Stack gap={8} pt={8} >
+        <Stack h={24} >
             <Heading>{title}</Heading>
-            <Text textAlign="right" >{description}</Text>
-        </SimpleGrid>
+            <Text>{description}</Text>
+        </Stack>
         <Separator />
     </Stack>
 );
@@ -27,11 +27,11 @@ const ServicesSection: React.FC = () => {
                     Nous vous offrons des solutions digitales sur mesure, performantes et parfaitement adaptées à vos besoins.
                 </Text>
             </VStack>
-            <Stack>
+            <SimpleGrid columns={[1, 2]} gap={4}>
                 {serviceItems.map((service, index) => (
                     <ServiceItem key={index} title={service.title} description={service.description} />
                 ))}
-            </Stack>
+            </SimpleGrid>
         </Box>
     );
 };

@@ -44,11 +44,11 @@ const Navbar: React.FC = () => {
 
     return (
         <Box position="fixed" top={0} left={0} width="full" zIndex={99} >
-            <Container px={[4, 16]} py={4} backdropFilter="blur(2px)">
+            <Container py={4} backdropFilter="blur(2px)">
                 <HStack justify="space-between">
                     {/* Logo */}
                     <HStack color="white" gap={0.5}>
-                        <Image src={`${import.meta.env.BASE_URL}/Logo-S.svg`}  alt="logo" />
+                        <Image src={`${import.meta.env.BASE_URL}/Logo-S.svg`} alt="logo" />
                         {!isMobile && <Text fontSize="2xl" fontWeight="bold" textTransform="uppercase" letterSpacing={5}>
                             amba Labs
                         </Text>}

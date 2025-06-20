@@ -13,7 +13,7 @@ const config = defineConfig({
                     100: { value: "#d8caff" },
                     200: { value: "#b49cff" },
                     300: { value: "#8d6aff" },
-                    400: { value: "#6439FD" }, // Couleur principale
+                    400: { value: "#FFDA54" }, // Couleur principale
                     500: { value: "#4d2dd1" },
                     600: { value: "#3a22a4" },
                     700: { value: "#291878" },
@@ -21,7 +21,7 @@ const config = defineConfig({
                     900: { value: "#0c0626" },
                 },
                 background: {
-                    default: { value: "#1C1919" },
+                    default: { value: "black" },
                 },
                 text: {
                     primary: { value: "#FFFFFF" },
