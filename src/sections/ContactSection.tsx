@@ -4,16 +4,10 @@ import {
     Heading,
     Text,
     Link,
-    Input,
-    Textarea,
-    Button,
-    useBreakpointValue,
-    SimpleGrid
 } from "@chakra-ui/react"
 import { FiMail } from "react-icons/fi"
 
 const ContactSection: React.FC = () => {
-    const isMobile = useBreakpointValue({ base: true, md: false })
 
     return (
         <Box id="contact" as="section" bg="black" color="white" py={{ base: 20, md: 32 }}>

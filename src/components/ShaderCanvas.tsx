@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Link, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React, { useRef, useEffect } from 'react';
 
 interface WebGLSetupResult {
@@ -21,130 +21,78 @@ const ShaderCanvas: React.FC = () => {
   `;
 
   const fragmentShaderSource: string = `
-    precision mediump float;
-    uniform vec2 iResolution;
-    uniform float iTime;
+  precision mediump float;
 
-    const float arrow_density = 4.5;
-    const float arrow_length = 0.45;
-    const int iterationTime1 = 20;
-    const int iterationTime2 = 20;
-    const float scale = 6.0;
-    const float velocity_x = 0.1;
-    const float velocity_y = 0.2;
-    const float mode_2_speed = 2.5;
-    const float mode_1_detail = 200.0;
-    const float mode_1_twist = 50.0;
+  uniform vec2 iResolution;
+  uniform float iTime;
 
-    float f(in vec2 p) {
-      return sin(p.x + sin(p.y + iTime * velocity_x)) * sin(p.y * p.x * 0.1 + iTime * velocity_y);
-    }
+  float random(vec2 st) {
+    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+  }
 
-    struct Field {
-      vec2 vel;
-      vec2 pos;
-    };
+  float noise(vec2 st) {
+    vec2 i = floor(st);
+    vec2 f = fract(st);
 
-    Field field(in vec2 p, in int mode) {
-      Field fld;
-      if(mode == 0) {
-        vec2 ep = vec2(0.05, 0.0);
-        vec2 rz = vec2(0.0);
-        
-        for(int i = 0; i < 20; i++) {
-          float t0 = f(p);
-          float t1 = f(p + ep.xy);
-          float t2 = f(p + ep.yx);
-          vec2 g = vec2((t1 - t0), (t2 - t0)) / ep.xx;
-          vec2 t = vec2(-g.y, g.x);
-          
-          p += (mode_1_twist * 0.01) * t + g * (1.0 / mode_1_detail);
-          p.x = p.x + sin(iTime * mode_2_speed / 10.0) / 15.0;
-          p.y = p.y + cos(iTime * mode_2_speed / 10.0) / 15.0;
-          rz = g;
-        }
-        fld.vel = rz;
-        return fld;
-      }
-      
-      if(mode == 1) {
-        vec2 ep = vec2(0.05, 0.0);
-        vec2 rz = vec2(0.0);
-        
-        for(int i = 0; i < 20; i++) {
-          float t0 = f(p);
-          float t1 = f(p + ep.xy);
-          float t2 = f(p + ep.yx);
-          vec2 g = vec2((t1 - t0), (t2 - t0)) / ep.xx;
-          vec2 t = vec2(-g.y, g.x);
-          
-          p += (mode_1_twist * 0.01) * t + g * (1.0 / mode_1_detail);
-          p.x = p.x + sin(iTime * mode_2_speed / 10.0) / 10.0;
-          p.y = p.y + cos(iTime * mode_2_speed / 10.0) / 10.0;
-          rz = g;
-        }
-        
-        fld.vel = rz;
-        
-        for(int i = 1; i < 20; i++) {
-          p.x += 0.3 / float(i) * sin(float(i) * 3.0 * p.y + iTime * mode_2_speed) + 0.5;
-          p.y += 0.3 / float(i) * cos(float(i) * 3.0 * p.x + iTime * mode_2_speed) + 0.5;
-        }
-        fld.pos = p;
-        return fld;
-      }
-      
-      return fld;
-    }
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
 
-    float segm(in vec2 p, in vec2 a, in vec2 b) {
-      vec2 pa = p - a;
-      vec2 ba = b - a;
-      float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
-      return length(pa - ba * h) * 20.0 * arrow_density;
-    }
+    vec2 u = f * f * (3.0 - 2.0 * f);
 
-    float fieldviz(in vec2 p, in int mode) {
-      vec2 ip = floor(p * arrow_density) / arrow_density + 0.5 / arrow_density;
-      vec2 t = field(ip, mode).vel;
-      float m = min(0.1, pow(length(t), 0.5) * (arrow_length / arrow_density));
-      vec2 b = normalize(t) * m;
-      float rz = segm(p, ip, ip + b);
-      vec2 prp = vec2(-b.y, b.x);
-      rz = min(rz, segm(p, ip + b, ip + b * 0.65 + prp * 0.3));
-      return clamp(min(rz, segm(p, ip + b, ip + b * 0.65 - prp * 0.3)), 0.0, 1.0);
-    }
+    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+  }
 
-    vec3 getRGB(in Field fld, in int mode) {
-      if(mode == 0) {
-        vec2 p = fld.vel;
-        vec3 origCol = vec3(p * 0.5 + 0.5, 1.5);
-        return origCol;
-      }
-      
-      if(mode == 1) {
-        vec2 p = fld.pos;
-        float r = cos(p.x + p.y + 1.5) * 1.5 + 1.5;
-        float g = sin(p.x + p.y + 1.0) * 0.1 + 0.1;
-        float b = (sin(p.x + p.y) + cos(p.x + p.y)) * 0.3 + 0.5;
-        return vec3(r, g, b);
-      }
-      
-      return vec3(1.0);
-    }
+  vec3 getBaseColor(vec2 uv, float time) {
+    float noiseValue = noise(vec2(uv.x, time));
+    float distortion = noise(uv + time) * 1.5;
+    uv.x += distortion;
+    uv.y += noise(uv + vec2(time, time)) * 10.1;
 
-    void main() {
-      vec2 p = gl_FragCoord.xy / iResolution.xy - 0.5;
-      p.x *= iResolution.x / iResolution.y;
-      p *= scale;
-      
-      int vector_mode = 0;
-      Field fld = field(p, vector_mode);
-      vec3 col = getRGB(fld, vector_mode) * 0.85;
-      
-      gl_FragColor = vec4(col, 1.2);
-    }
-  `;
+    float gradientFrequency = mix(2.0, 10.0, noiseValue);
+    float gradient = fract(uv.x * gradientFrequency + time);
+    gradient = pow(gradient, 2.0);
+
+    vec3 blueGreen = vec3(0.2, 0.3, 0.9);
+    vec3 darkViolet = vec3(0.3, 0.2, 0.9);
+    vec3 lightBlue = vec3(0.6, 0.5, 1.0);
+    vec3 black = vec3(0.0);
+
+    vec3 color = mix(black, blueGreen, gradient);
+    color = mix(color, darkViolet, smoothstep(0.1, 0.6, gradient));
+    color = mix(color, lightBlue, smoothstep(0.2, 0.9, gradient));
+    color = mix(color, black, smoothstep(0.985, 1.0, gradient));
+    return color;
+  }
+
+  float vignette(vec2 uv) {
+    uv = uv * 2.0 - 1.0;
+    float len = dot(uv, uv);
+    return smoothstep(1.5, 0.2, len);
+  }
+
+  void main() {
+    vec2 uv = gl_FragCoord.xy / iResolution.xy;
+    float time = iTime * 0.1;
+
+    float chromaOffset = -2.5 / iResolution.x;
+
+    vec3 col;
+    col.r = getBaseColor(uv + vec2(chromaOffset, 0.0), time).r;
+    col.g = getBaseColor(uv, time).g;
+    col.b = getBaseColor(uv - vec2(chromaOffset, 0.0), time).b;
+
+    float vig = vignette(uv);
+    col *= vig;
+
+    float grain = (random(gl_FragCoord.xy + iTime * 20.0) - 0.5) * 0.09;
+    col += grain;
+
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
 
   const createShader = (
     gl: WebGLRenderingContext,

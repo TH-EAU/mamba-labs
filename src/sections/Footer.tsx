@@ -33,6 +33,7 @@ const Footer: React.FC = () => {
                 <VStack align="flex-start" gap={2}>
                     {navlinks.map(link =>
                         <ScrollLink
+                            key={link.label + link.href}
                             to={link.href}
                             smooth="true"
                             duration={500}

@@ -10,9 +10,6 @@ import {
     useBreakpointValue,
     Portal,
     CloseButton,
-    Button,
-    Kbd,
-    For,
 } from "@chakra-ui/react"
 import { Link as ScrollLink } from "react-scroll"
 import { FiMenu } from "react-icons/fi"
@@ -69,6 +66,7 @@ const Navbar: React.FC = () => {
                                     offset={-80}
                                 >
                                     <Link
+                                        as="span"
                                         fontSize="lg"
                                         fontWeight="semibold"
                                         textDecoration="none"
@@ -140,6 +138,7 @@ const Navbar: React.FC = () => {
                                                     >
                                                         {/** Important : on peut mettre cursor pointer pour un lien cliquable */}
                                                         <Link
+                                                            as="span"
                                                             fontSize="2xl"
                                                             fontWeight="bold"
                                                             _hover={{ textDecoration: "underline" }}

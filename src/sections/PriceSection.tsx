@@ -2,14 +2,9 @@ import {
     Box,
     Text,
     SimpleGrid,
-    Stack,
-    Button,
-    HStack,
-    Center,
     VStack,
     Heading,
 } from "@chakra-ui/react"
-import { FiCheck } from "react-icons/fi"
 import PriceCard from "../components/PriceCard"
 
 type Plan = {

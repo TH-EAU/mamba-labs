@@ -1,5 +1,4 @@
-import { Box, Stack, Text, Image, Link, Skeleton, Heading } from "@chakra-ui/react"
-import { FiArrowUpRight } from "react-icons/fi"
+import { Box, Stack, Text, Image,  Heading } from "@chakra-ui/react"
 import HoverCardWrapper from "./HoverCardWrapper"
 import type { Project } from "../models/Projects"
 import ProjectPage from "./ProjectPage"
